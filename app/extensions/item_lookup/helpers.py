@@ -7,19 +7,14 @@ from supermechs.abc.stats import StatsMapping
 from supermechs.api import Stat
 
 
-def truncate_float(num: float, decimals: int) -> tuple[float, int]:
-    num = round(num, decimals)
-    if float(num).is_integer():  # ints don't have .is_integer
-        return num, 0
-    return num, decimals
-
-
 def format_float(num: float, decimals: int) -> str:
-    num, decimals = truncate_float(num, decimals)
-    return f"{num:.{decimals}f}"
+    num = round(num, decimals)
+    # strip all trailing zeros, which possibly exposes the floating point
+    return f"{num:f}".rstrip("0").removesuffix(".")
 
 
 def try_shorten(name: str, limit: int = 16) -> str:
+    """Shorten a name """
     if len(name) < limit:
         return name
 
@@ -43,15 +38,16 @@ def get_row_width(size: int, max_length: int) -> int:
 
 def mean_and_deviation(a: float, b: float) -> tuple[float, float]:
     mean = (a + b) / 2
+    # σ = √(Σ(x - μ)² / N)  # noqa: RUF003
     deviation = math.sqrt(((a - mean) ** 2 + (b - mean) ** 2) / 2)
     return mean, deviation
 
 
-def format_average(a: float, b: float, decimals: int = 1) -> str:
-    mean, deviation = mean_and_deviation(a, b)
-    dev = deviation / mean * 100
+def format_as_mean(a: float, b: float, decimals: int = 1) -> str:
+    mean, dev = mean_and_deviation(a, b)
+    stdev = dev / mean * 100
     str_mean = format_float(mean, 1)
-    str_dev = format_float(dev, decimals)
+    str_dev = format_float(stdev, decimals)
     return f"{str_mean} ±{str_dev}%"
 
 
@@ -84,7 +80,7 @@ def iter_formatted_stats(
         return f"{a}-{b}"
 
     format_: abc.Callable[[float, float], str] = (
-        partial(format_average, decimals=decimals) if avg else format_two
+        partial(format_as_mean, decimals=decimals) if avg else format_two
     )
 
     yield from _format_single(stats, islice(Stat, 11))
