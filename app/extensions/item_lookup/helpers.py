@@ -3,7 +3,7 @@ from collections import abc
 from functools import partial
 from itertools import islice
 
-from supermechs.abc.stats import StatsMapping, StatType
+from supermechs.abc.stats import StatsMapping
 from supermechs.api import Stat
 
 
@@ -24,12 +24,6 @@ def try_shorten(name: str, limit: int = 16) -> str:
         return name
 
     return "".join(s for s in name if s.isupper())
-
-
-def compare_numbers(
-    x: StatType, y: StatType, lower_is_better: bool = False
-) -> tuple[StatType, StatType]:
-    return (x - y, 0) if lower_is_better ^ (x > y) else (0, y - x)
 
 
 def get_row_width(size: int, max_length: int) -> int:
