@@ -101,10 +101,6 @@ default = "Rozrzut"
 [custom_stats.anyDmg]
 default = "Obrażenia"
 
-[other]
-jumpRequired = "Wymagana zdolność skoku"
-transformRange = "Etapy transformacji"
-
 [messages]
 command-dev = "To komenda wyłącznie deweloperska."
 command-running = "Twoje poprzednie wywołanie tej komendy jest nadal w toku."
@@ -139,8 +135,14 @@ mech-build-ui-select-up-desc = "Wybierz by zobaczyć poprzednie przedmioty"
 mech-build-ui-select-down-label = "Więcej przedmiotów"
 mech-build-ui-select-down-desc = "Wybierz by zobaczyć więcej przedmiotów"
 
-item-compare-ui-buffs = "Bonusy"
+item-lookup-transform-range = "Etapy transformacji:"
+item-lookup-jump-required = "Wymagana zdolność skoku"
+item-lookup-stats = "Statystyki:"
+item-lookup-ui-buffs = "Bonusy"
+item-lookup-ui-average = "Średnie obrażenia"
+
 item-compare-jump-required = "Wymagana zdolność skoku"
+item-compare-ui-buffs = "Bonusy"
 item-compare-stat-header = "Statystyka"
 
 [commands]

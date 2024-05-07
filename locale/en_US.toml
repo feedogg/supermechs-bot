@@ -119,9 +119,6 @@ default = "Damage spread"
 [custom-stats.anyDmg]
 default = "Damage"
 
-[other]
-transform-range = "Transformation tiers"
-
 [messages]
 command-dev = "This is a developer-only command."
 command-running = "Your previous instance of this command is still running."
@@ -156,6 +153,12 @@ mech-build-ui-select-up-desc = "Select to show previous items"
 mech-build-ui-select-down-label = "More items"
 mech-build-ui-select-down-desc = "Select to show more items"
 
-item-compare-ui-buffs = "Buffs"
+item-lookup-transform-range = "Transform range:"
+item-lookup-jump-required = "Jumping required"
+item-lookup-stats = "Stats:"
+item-lookup-ui-buffs = "Buffs"
+item-lookup-ui-average = "Damage average"
+
 item-compare-jump-required = "Jumping required"
+item-compare-ui-buffs = "Buffs"
 item-compare-stat-header = "Stat"

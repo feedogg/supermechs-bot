@@ -32,12 +32,12 @@ def item_view(
     if __debug__:
         debug_footer(embed)
 
-    @store.bind(ToggleButton(label="Buffs"))
+    @store.bind(ToggleButton(label=gettext("item-lookup-ui-buffs")))
     async def buff_button(inter: MessageInteraction) -> None:
         buff_button.toggle()
         await update(inter)
 
-    @store.bind(ToggleButton(label="Damage average"))
+    @store.bind(ToggleButton(label=gettext("item-lookup-ui-average")))
     async def avg_button(inter: MessageInteraction) -> None:
         avg_button.toggle()
         await update(inter)
@@ -73,7 +73,12 @@ def default_fields(
     embed: Embed, item: ItemData, buffs_enabled: bool, avg: bool, locale: Locale
 ) -> None:
     """Fills embed with detailed info about an item."""
-    embed.add_field("Transform range:", item_transform_range(item), inline=False)
+    gettext = partial(i18n.get_message, locale)
+    embed.add_field(
+        gettext("item-lookup-transform-range"),
+        item_transform_range(item),
+        inline=False,
+    )
 
     spaced = False
     string = io.StringIO()
@@ -87,9 +92,9 @@ def default_fields(
         string.write(f"{STAT[stat]} **{str_value}** {i18n.get_stat_name(locale, stat)}\n")
 
     if item.tags.require_jump:
-        string.write(f"{STAT[Stat.jump]} **Jumping required**")
+        string.write(f"{STAT[Stat.jump]} **{gettext('item-lookup-jump-required')}**")
 
-    embed.add_field("Stats:", string.getvalue(), inline=False)
+    embed.add_field(gettext("item-lookup-stats"), string.getvalue(), inline=False)
 
 
 def compact_fields(
