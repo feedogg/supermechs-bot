@@ -15,7 +15,8 @@ from discord_extensions.ui.store import ComponentStore
 from env import ENV
 from shared.item_packs import DEFAULT_PACK, get_item_by_name
 
-from .item_lookup import item_compare_view, item_view
+from .compare import item_compare_view
+from .item_lookup import item_view
 
 from supermechs.api import Element, ItemData, Type
 from supermechs.ext.deserializers.typedefs.packs import LiteralElement, LiteralType
