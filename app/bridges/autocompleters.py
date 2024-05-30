@@ -1,10 +1,10 @@
 import typing
 from collections import abc, defaultdict
 
+import storage
 from discord_utils import AutocompleteReturnType, InteractionLimits
 from shared.item_packs import get_item_pack_for
 from sm.name_utils import acronym_of, search_for
-from stored import players
 from user_input import StringLimits
 
 from supermechs.abc.item import Name
@@ -88,7 +88,7 @@ async def item_name_autocomplete(inter: "CommandInteraction", input: str) -> Aut
 async def mech_name_autocomplete(inter: "CommandInteraction", input: str) -> AutocompleteReturnType:
     """Autocomplete for player builds."""
 
-    player = players(inter.author)
+    player = await storage.get_player(inter.author)
     lowercase = input.lower()
 
     matching = [

@@ -19,7 +19,7 @@ _LOGGER = logging.getLogger(__name__)
 
 def player_factory(user: disnake.abc.User, /) -> Player:
     _LOGGER.info("Player created: %d (%s)", user.id, user.name)
-    return Player(user=user)
+    return Player(id=user.id)
 
 
 def item_pack_factory(data: AnyItemPack, /) -> ItemPack:
@@ -58,7 +58,7 @@ async def load_image(url: "StrOrURL", /) -> "Image.Image":
             parser.feed(chunk)
             assert parser.data is not None
 
-            if len(parser.data) > MAX_CONTENT_LENGTH:
+            if len(parser.data) > MAX_CONTENT_LENGTH:  # pyright: ignore
                 msg = "Image too large"
                 raise ValueError(msg)
 

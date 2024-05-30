@@ -7,6 +7,7 @@ import disnake
 from disnake.ext import commands
 
 import i18n
+import storage
 from bridges import register_injections, setup_channel_logger
 from config import logging_config
 from discord_utils import load_extensions
@@ -38,6 +39,7 @@ async def main() -> None:
     register_injections()
     load_extensions(bot.load_extension, "extensions")
     # bypass call to _schedule_app_command_preparation
+    await storage.load()
     await disnake.Client.login(bot, ENV.token)
     await setup_channel_logger(bot, ENV.logs_channel_id)
 

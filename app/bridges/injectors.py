@@ -3,10 +3,10 @@ from disnake import CommandInteraction
 from disnake.ext import commands
 
 import i18n
+import storage
 from env import ENV
 from models import Player
 from shared.item_packs import get_item_by_name, get_item_pack_for
-from stored import players
 
 from .autocompleters import item_name_autocomplete
 
@@ -39,9 +39,9 @@ def register_injections() -> None:
         raise commands.UserInputError(msg)
 
     @commands.register_injection
-    def inject_player(inter: CommandInteraction) -> Player:
+    async def inject_player(inter: CommandInteraction) -> Player:
         """Injection creating a player from interaction."""
-        return players(inter.author)
+        return await storage.get_player(inter.author)
 
     @commands.register_injection
     def inject_locale(inter: CommandInteraction) -> disnake.Locale:
